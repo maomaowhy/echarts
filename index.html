@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8" />
+
+        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- <script src="__PUBLIC__/js/echarts/echarts.min.js?v=1.0.0"></script> -->
+    <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"
+    ></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="servicetype" style="height: 100%"></div>
+
+<script>
+
+    $.getJSON(
+        "../json/aba.json",
+        function (data, status) {
+            var abaJSON = {};
+            abaJSON = data;
+            //   var aba = require("./aba.json");
+            var dom = document.getElementById("servicetype");
+            console.log(echarts);
+            var myChart = echarts.init(dom);
+            //这里的aba是一个JSON数据，jquery的方式可以通过$.getJSON来进行赋值，也可以自己异步操作
+            echarts.registerMap("aba", abaJSON);
+            var geoCoordMap = {
+                金川县: [101.80369, 31.520161],
+                小金县: [102.469247, 31.129073],
+                阿坝县: [101.764537, 32.879299],
+                若尔盖县: [102.887579, 33.657987],
+                红原县: [102.63276, 32.724316],
+                壤塘县: [101.050311, 32.148959],
+                汶川: [103.288219, 31.162761],
+                理县: [103.014273, 31.57306],
+                茂县: [103.631922, 31.846249],
+                松潘县: [103.529039, 32.616721],
+                九寨沟县: [103.926618, 33.311923],
+                黑水县: [103.051268, 32.161978],
+                马尔康市: [102.01524, 32.013374],
+            };
+            var moveLine = {
+                normal: [
+                    {
+                        fromName: "阿坝县",
+                        toName: "金川县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [101.80369, 31.520161],
+
+                            //   [101.80369, 31.520161],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "小金",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [102.469247, 31.129073],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "马尔康市",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [102.01524, 32.013374],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "若尔盖县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [102.887579, 33.657987],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "红原县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [102.63276, 32.724316],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "壤塘县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [101.050311, 32.148959],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "汶川",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.288219, 31.162761],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "理县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.014273, 31.57306],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "茂县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.631922, 31.846249],
+                        ],
+                    },
+
+                    {
+                        fromName: "阿坝县",
+                        toName: "松潘县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.529039, 32.616721],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "九寨沟县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.926618, 33.311923],
+                        ],
+                    },
+                    {
+                        fromName: "阿坝县",
+                        toName: "黑水县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.051268, 32.161978],
+                        ],
+                    },
+                ],
+                warning: [
+                    {
+                        fromName: "阿坝县",
+                        toName: "黑水县",
+                        coords: [
+                            [101.764537, 32.879299],
+                            [103.051268, 32.161978],
+                        ],
+                    },
+                ],
+            };
+            var data = [
+                { name: "马尔康市", value: 190 },
+                { name: "金川县", value: 190 },
+                { name: "小金县", value: 190 },
+                { name: "阿坝县", value: 190 },
+                { name: "若尔盖县", value: 190 },
+                { name: "红原县", value: 90 },
+                { name: "壤塘县", value: 120 },
+                { name: "汶川", value: 120 },
+                { name: "理县", value: 120 },
+                { name: "茂县", value: 120 },
+                { name: "松潘县", value: 190 },
+                { name: "九寨沟县", value: 190 },
+                { name: "黑水县", value: 190 },
+            ];
+            var max = 480,
+                min = 9; // todo
+            var maxSize4Pin = 100,
+                minSize4Pin = 20;
+
+            var convertData = function (data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var geoCoord = geoCoordMap[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value),
+                        });
+                    }
+                }
+                return res;
+            };
+
+            option = {
+                backgroundColor: "#091c3d",
+                title: {
+                    top: 20,
+                    text: "阿坝藏族羌族自治州",
+                    subtext: "",
+                    x: "center",
+                    textStyle: {
+                        color: "#ccc",
+                    },
+                },
+
+                // tooltip: {
+                //   trigger: "item",
+                //   formatter: function (params) {
+                //     if (typeof params.value[2] == "undefined") {
+                //       return params.name + " : " + params.value;
+                //     } else {
+                //       return params.name + " : " + params.value[2];
+                //     }
+                //   },
+                // },
+                // legend: {
+                //   orient: "vertical",
+                //   y: "bottom",
+                //   x: "right",
+                //   data: ["pm2.5"],
+                //   textStyle: {
+                //     color: "#fff",
+                //   },
+                // },
+                visualMap: {
+                    show: false,
+                    min: 0,
+                    max: 500,
+                    left: "left",
+                    top: "bottom",
+                    text: ["高", "低"], // 文本，默认为数值文本
+                    calculable: true,
+                    seriesIndex: [1],
+                    //   区域交错颜色
+                    inRange: {
+                        // color: ['#3B5077', '#031525'] // 蓝黑
+                        // color: ['#ffc0cb', '#800080'] // 红紫
+                        // color: ['#3C3B3F', '#605C3C'] // 黑绿
+                        //color: ['#0f0c29', '#302b63', '#24243e'] // 黑紫黑
+                        //color: ['#23074d', '#cc5333'] // 紫红
+                        // color: ["#00467F", "#A5CC82"], // 蓝绿
+                        // color: ['#1488CC', '#2B32B2'] // 浅蓝
+                        // color: ['#00467F', '#A5CC82'] // 蓝绿
+                        // color: ['#00467F', '#A5CC82'] // 蓝绿
+                        // color: ['#00467F', '#A5CC82'] // 蓝绿
+                        // color: ['#00467F', '#A5CC82'] // 蓝绿
+                    },
+                },
+                // toolbox: {
+                //     show: true,
+                //     orient: 'vertical',
+                //     left: 'right',
+                //     top: 'center',
+                //     feature: {
+                //             dataView: {readOnly: false},
+                //             restore: {},
+                //             saveAsImage: {}
+                //             }
+                // },
+                // 地图标注
+                geo: {
+                    show: true,
+                    map: "aba",
+                    label: {
+                        normal: {
+                            // 不显示地区文字
+                            show: false,
+                        },
+                        emphasis: {
+                            show: true,
+                        },
+                    },
+
+                    roam: false, //不可以动起来
+                    itemStyle: {
+                        //   地区颜色和分界线宽度
+                        normal: {
+                            areaColor: "transparent",
+                            borderColor: "#3fdaff",
+                            borderWidth: 2,
+                            shadowColor: "rgba(63, 218, 255, 0.5)",
+                            shadowBlur: 30,
+                        },
+                        emphasis: {
+                            areaColor: "#2B91B7",
+                        },
+                    },
+                },
+                series: [
+                    // 地图渐变色效果
+                    {
+                        name: "light",
+                        type: "scatter",
+                        coordinateSystem: "geo",
+                        data: convertData(data),
+                        symbolSize: function (val) {
+                            return val[2] / 10;
+                        },
+                        label: {
+                            normal: {
+                                formatter: "{b}",
+                                position: "right",
+                                // color
+                                show: false,
+                            },
+                            emphasis: {
+                                show: true,
+                            },
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: "#F4E925",
+                            },
+                        },
+                    },
+                    //地区点击后的效果
+                    {
+                        type: "map",
+                        map: "aba",
+                        geoIndex: 0,
+                        aspectScale: 0.75, //长宽比
+                        showLegendSymbol: false, // 存在legend时显示
+                        label: {
+                            normal: {
+                                show: true,
+                            },
+                            emphasis: {
+                                show: false,
+                                textStyle: {
+                                    color: "#fff",
+                                },
+                            },
+                        },
+                        roam: true,
+                        itemStyle: {
+                            normal: {
+                                areaColor: "#031525",
+                                borderColor: "#FFFFFF",
+                            },
+                            emphasis: {
+                                areaColor: "#2B91B7",
+                            },
+                        },
+                        animation: false,
+                        data: data,
+                    },
+                    //   波浪线效果
+                    {
+                        name: "Top 5",
+                        type: "effectScatter",
+                        coordinateSystem: "geo",
+                        data: convertData(
+                            data
+                                .sort(function (a, b) {
+                                    return b.value - a.value;
+                                })
+                                .slice(0, 13)
+                        ),
+                        symbolSize: function (val) {
+                            return val[2] / 10;
+                        },
+                        showEffectOn: "render",
+                        rippleEffect: {
+                            brushType: "stroke",
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: "{b}",
+                                position: "right",
+                                // 波浪效果文字大小
+                                textStyle: {
+                                    fontSize: "1rem",
+                                    fontWeight: "bold",
+                                    //   color: "#000",
+                                },
+                                show: true,
+                            },
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: "#F4E925",
+                                shadowBlur: 10,
+                                shadowColor: "#05C3F9",
+                            },
+                        },
+                        zlevel: 99,
+                    },
+                    //   起始线路效果
+                    {
+                        name: "线路",
+                        type: "lines",
+                        coordinateSystem: "geo",
+                        zlevel: 2,
+                        large: true,
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: "arrow", //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                            symbolSize: 0,
+                            trailLength: 0,
+                        },
+
+                        lineStyle: {
+                            normal: {
+                                // color: "#0fff17",
+                                color: new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    0,
+                                    1,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: "#fa709a",
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#fee140",
+                                        },
+                                    ],
+                                    false
+                                ),
+                                width: 2,
+                                opacity: 1.0,
+                                curveness: 0.15,
+                            },
+                        },
+                        data: moveLine.normal,
+                    },
+                    //   起始线强调效果
+                    {
+                        name: "线路",
+                        type: "lines",
+                        coordinateSystem: "geo",
+                        zlevel: 2,
+                        large: true,
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: "arrow", //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                            symbolSize: 10,
+                            trailLength: 0,
+                        },
+
+                        lineStyle: {
+                            normal: {
+                                color: "rgb(255, 0, 0)",
+                                width: 2,
+                                opacity: 1,
+                                curveness: 0.15,
+                            },
+                        },
+                        data: moveLine.warning,
+                    },
+                ],
+            };
+            myChart.on("click", function (params) {
+                alert(params.data.name + ":" + params.data.value);
+            });
+            myChart.setOption(option);
+        })
+
+</script>
+</body>
+</html>
+<style>
+    @media only screen and (max-width: 1200px) {
+        div {
+            font-size: 39px;
+        }
+    }
+    @media only screen and (max-width: 1100px) {
+        div {
+            font-size: 38px;
+        }
+    }
+    @media only screen and (max-width: 1000px) {
+        div {
+            font-size: 37px;
+        }
+    }
+    @media only screen and (max-width: 900px) {
+        div {
+            font-size: 36px;
+        }
+    }
+    @media only screen and (max-width: 800px) {
+        div {
+            font-size: 35px;
+        }
+    }
+    @media only screen and (max-width: 700px) {
+        div {
+            font-size: 34px;
+        }
+    }
+    @media only screen and (max-width: 600px) {
+        div {
+            font-size: 33px;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+        div {
+            font-size: 32px;
+        }
+    }
+    @media only screen and (max-width: 400px) {
+        div {
+            font-size: 31px;
+        }
+    }
+    @media only screen and (max-width: 300px) {
+        div {
+            font-size: 30px;
+        }
+    }
+</style>
